@@ -2,7 +2,7 @@ import { createChart, ColorType } from 'lightweight-charts';
 import React, { useEffect, useRef } from 'react';
 import {io} from 'socket.io-client';
 
-const socket = io('http://localhost:3001');
+const socket = io('https://algo-server-xk7g.onrender.com');
 
 
 const ChartComponent = props => {
@@ -23,7 +23,7 @@ const ChartComponent = props => {
 
 		socket.emit('phase2', {message: "phase2"});
 
-		socket.on('receive_data', ({newData, oldData})=>{
+		socket.on('receive_data', ({newData})=>{
 			newSeries.update(newData);
 		})
 	},[socket]);

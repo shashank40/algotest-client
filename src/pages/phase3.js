@@ -2,7 +2,7 @@ import { createChart, ColorType } from 'lightweight-charts';
 import React, { useEffect, useRef, useState } from 'react';
 import {io} from 'socket.io-client';
 
-const socket = io('http://localhost:3001');
+const socket = io('https://algo-server-xk7g.onrender.com');
 
 
 const ChartComponent = props => {
@@ -61,6 +61,7 @@ const ChartComponent = props => {
 	useEffect(()=>{
 		socket.on('receive_data', ({newData, oldData, resolutionIncoming})=>{
 			// if(resolutionIncoming==resolution){}
+			console.log(resolutionIncoming)
 			if(oldData.length>0)  newSeries.setData(oldData);
 			newData!=null?newSeries.update(newData):console.log("No new data");
 			 

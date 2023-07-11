@@ -1,5 +1,7 @@
 import { Inter } from 'next/font/google'
 
+import LinkComponent from '../../components/LinkComponent'
+
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
@@ -13,71 +15,10 @@ export default function Home() {
       </div>
 
       <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-          Phase I{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-          Lightweight charts (Single Instrument)&nbsp;
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-          Phase II{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-          Live Price.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-          Phase III{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-          OHLC
-          </p>
-        </a>
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-          Phase IV{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-          Multiple Instrument
-          </p>
-        </a>
+        <LinkComponent heading="Phase I" description="Lightweight charts (Single Instrument)" hreftag= "/phase1"/>
+        <LinkComponent heading="Phase II" description="Fetch Data from websockets." hreftag= "/phase2"/>
+        <LinkComponent heading="Phase III" description="OHLC(with option to change resolution)" hreftag= "/phase3"/>
+        <LinkComponent heading="Phase IV" description="Multiple Instrument(OHLC + Choose data + resolution change)" hreftag= "/phase4"/>
       </div>
     </main>
   )
