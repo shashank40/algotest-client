@@ -23,9 +23,8 @@ const ChartComponent = props => {
 
 		socket.emit('phase2', {message: "phase2"});
 
-		socket.on('receive_data', (data)=>{
-			console.log(data);
-			newSeries.update(data);
+		socket.on('receive_data', ({newData, oldData})=>{
+			newSeries.update(newData);
 		})
 	},[socket]);
 
@@ -50,7 +49,7 @@ const ChartComponent = props => {
 			});
 			chart.timeScale().fitContent();
 
-			newSeries = chart.addLineSeries({ lineColor, topColor: areaTopColor, bottomColor: areaBottomColor });
+			newSeries = chart.addAreaSeries({ lineColor, topColor: areaTopColor, bottomColor: areaBottomColor });
 
 			window.addEventListener('resize', handleResize);
 

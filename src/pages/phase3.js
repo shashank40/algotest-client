@@ -6,34 +6,20 @@ const socket = io('http://localhost:3001');
 
 
 const ChartComponent = props => {
-	const {data,
+	const {_,
             colors: {
 			backgroundColor = 'white',
-			lineColor = '#2962FF',
 			textColor = 'black',
-			areaTopColor = '#2962FF',
-			areaBottomColor = 'rgba(41, 98, 255, 0.28)',
             upColor = '#26a69a',
             downColor = '#ef5350'
 		} = {},
 	} = props;
 
-	const chartContainerRef = useRef();
-	let newSeries;
-    let chart;
-	let handleResize;
-
+	var chartContainerRef = useRef();
+	var newSeries;
+    var chart;
+	var handleResize;
     const [resolution, setResolution] = useState("1");
-    
-    useEffect(()=>{
-        socket.emit('phase3', {message: resolution});
-    }, [resolution]);
-
-    useEffect(()=>{
-		socket.on('receive_data', (data)=>{
-			newSeries.update(data);
-		})
-	},[socket]);
 
 	useEffect(
 		() => {
@@ -50,24 +36,36 @@ const ChartComponent = props => {
 					timeVisible: true,
 					secondsVisible: true,
 					fixRightEdge: true,
+					lockVisibleTimeRangeOnResize: true,
 				  },
 				width: chartContainerRef.current.clientWidth,
 				height: 300,
 			});
 			chart.timeScale().fitContent();
 
-			newSeries = chart.addBarSeries({upColor: upColor, downColor: downColor });
-
+			newSeries = chart.addCandlestickSeries({
+				upColor: upColor, downColor: downColor, borderVisible: false,
+				wickUpColor: upColor, wickDownColor: downColor,
+			});
 			window.addEventListener('resize', handleResize);
+			socket.emit('phase3', {message: resolution});
 
-			return () => {
-				window.removeEventListener('resize', handleResize);
+			 return () => {
+			 	window.removeEventListener('resize', handleResize);
 
 				chart.remove();
-			};
-		},
-		[data, backgroundColor, lineColor, textColor, areaTopColor, areaBottomColor]
+			 };
+		}, [resolution]
 	);
+
+	useEffect(()=>{
+		socket.on('receive_data', ({newData, oldData, resolutionIncoming})=>{
+			// if(resolutionIncoming==resolution){}
+			if(oldData.length>0)  newSeries.setData(oldData);
+			newData!=null?newSeries.update(newData):console.log("No new data");
+			 
+		})
+	},[resolution, socket]);
 
 	return (<>
         <main className="h-full m-auto flex flex-col items-center justify-around mt-10">
@@ -83,6 +81,7 @@ const ChartComponent = props => {
                 <label className='text-xl font-semibold'>
                     Choose resolution :&nbsp;
                     <select onChange= {(event)=>{
+						chart.removeSeries(newSeries);
 						setResolution(event.target.value);
 					}}>
                         <option value="1">1 min</option>
