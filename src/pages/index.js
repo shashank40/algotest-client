@@ -15,7 +15,7 @@ export default function Home() {
       </div>
 
       <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <LinkComponent heading="Phase I" description="Lightweight charts (Single Instrument Just Data Setting)" hreftag= "/phase1"/>
+        <LinkComponent heading="Phase I" description="Lightweight charts data (Single Instrument)" hreftag= "/phase1"/>
         <LinkComponent heading="Phase II" description="Fetch Data from websockets." hreftag= "/phase2"/>
         <LinkComponent heading="Phase III" description="OHLC(with option to change resolution)" hreftag= "/phase3"/>
         <LinkComponent heading="Phase IV" description="Multiple Instrument(OHLC + Choose data + resolution change)" hreftag= "/phase4"/>
